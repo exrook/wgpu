@@ -109,6 +109,7 @@ impl crate::AddressSpace {
             crate::AddressSpace::WorkGroup
             | crate::AddressSpace::Uniform
             | crate::AddressSpace::Storage { .. }
+            | crate::AddressSpace::PhysicalStorage { .. }
             | crate::AddressSpace::Handle
             | crate::AddressSpace::PushConstant => false,
         }
@@ -1113,6 +1114,8 @@ impl<'a, W: Write> Writer<'a, W> {
             crate::AddressSpace::Storage { .. } => {
                 self.write_interface_block(handle, global)?;
             }
+            // The PhysicalStorage address space is only for pointers.
+            crate::AddressSpace::PhysicalStorage { .. } => unreachable!(),
             // A global variable in the `Function` address space is a
             // contradiction in terms.
             crate::AddressSpace::Function => unreachable!(),
@@ -4212,6 +4215,7 @@ const fn glsl_storage_qualifier(space: crate::AddressSpace) -> Option<&'static s
         As::Function => None,
         As::Private => None,
         As::Storage { .. } => Some("buffer"),
+        As::PhysicalStorage { .. } => Some("buffer_reference"),
         As::Uniform => Some("uniform"),
         As::Handle => Some("uniform"),
         As::WorkGroup => Some("shared"),

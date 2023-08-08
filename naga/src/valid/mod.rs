@@ -117,6 +117,11 @@ bitflags::bitflags! {
         const DUAL_SOURCE_BLENDING = 0x2000;
         /// Support for arrayed cube textures.
         const CUBE_ARRAY_TEXTURES = 0x4000;
+        /// Support for pointers to device buffers.
+        /// Required for using the [`crate::AddressSpace::PhysicalStorage`] pointer address space.
+        /// Required by Vulkan extension `VK_KHR_buffer_device_address`:
+        /// <https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_buffer_device_address.html>
+        const PHYSICAL_STORAGE_BUFFER_ADDRESSES = 0x8000;
     }
 }
 
