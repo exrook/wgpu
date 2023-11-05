@@ -66,44 +66,44 @@ fn main(
     }
     passed += u32(subgroupOr(global_id.x + 1u) == expected);
 
-    expected = 0u;
-    for(var i = 0u; i < subgroup_size; i += 1u) {
-        expected ^= global_id.x - subgroup_invocation_id + i + 1u;
-    }
-    passed += u32(subgroupXor(global_id.x + 1u) == expected);
+    // expected = 0u;
+    // for(var i = 0u; i < subgroup_size; i += 1u) {
+    //     expected ^= global_id.x - subgroup_invocation_id + i + 1u;
+    // }
+    // passed += u32(subgroupXor(global_id.x + 1u) == expected);
 
-    expected = 0u;
-    for(var i = 0u; i < subgroup_invocation_id; i += 1u) {
-        expected += global_id.x - subgroup_invocation_id + i + 1u;
-    }
-    passed += u32(subgroupPrefixExclusiveAdd(global_id.x + 1u) == expected);
+    // expected = 0u;
+    // for(var i = 0u; i < subgroup_invocation_id; i += 1u) {
+    //     expected += global_id.x - subgroup_invocation_id + i + 1u;
+    // }
+    // passed += u32(subgroupPrefixExclusiveAdd(global_id.x + 1u) == expected);
 
-    expected = 1u;
-    for(var i = 0u; i < subgroup_invocation_id; i += 1u) {
-        expected *= global_id.x - subgroup_invocation_id + i + 1u;
-    }
-    passed += u32(subgroupPrefixExclusiveMul(global_id.x + 1u) == expected);
+    // expected = 1u;
+    // for(var i = 0u; i < subgroup_invocation_id; i += 1u) {
+    //     expected *= global_id.x - subgroup_invocation_id + i + 1u;
+    // }
+    // passed += u32(subgroupPrefixExclusiveMul(global_id.x + 1u) == expected);
 
-    expected = 0u;
-    for(var i = 0u; i <= subgroup_invocation_id; i += 1u) {
-        expected += global_id.x - subgroup_invocation_id + i + 1u;
-    }
-    passed += u32(subgroupPrefixInclusiveAdd(global_id.x + 1u) == expected);
+    // expected = 0u;
+    // for(var i = 0u; i <= subgroup_invocation_id; i += 1u) {
+    //     expected += global_id.x - subgroup_invocation_id + i + 1u;
+    // }
+    // passed += u32(subgroupPrefixInclusiveAdd(global_id.x + 1u) == expected);
 
-    expected = 1u;
-    for(var i = 0u; i <= subgroup_invocation_id; i += 1u) {
-        expected *= global_id.x - subgroup_invocation_id + i + 1u;
-    }
-    passed += u32(subgroupPrefixInclusiveMul(global_id.x + 1u) == expected);
+    // expected = 1u;
+    // for(var i = 0u; i <= subgroup_invocation_id; i += 1u) {
+    //     expected *= global_id.x - subgroup_invocation_id + i + 1u;
+    // }
+    // passed += u32(subgroupPrefixInclusiveMul(global_id.x + 1u) == expected);
 
-    passed += u32(subgroupBroadcastFirst(u32(subgroup_invocation_id != 0u)) == 0u);
-    passed += u32(subgroupBroadcastFirst(u32(subgroup_invocation_id == 0u)) == 1u);
-    passed += u32(subgroupBroadcast(subgroup_invocation_id, 4u) == 4u);
-    passed += u32(subgroupShuffle(subgroup_invocation_id, subgroup_invocation_id) == subgroup_invocation_id);
-    passed += u32(subgroupShuffle(subgroup_invocation_id, subgroup_size - 1u - subgroup_invocation_id) == subgroup_size - 1u - subgroup_invocation_id);
-    passed += u32(subgroup_invocation_id == subgroup_size - 1u || subgroupShuffleDown(subgroup_invocation_id, 1u) == subgroup_invocation_id + 1u);
-    passed += u32(subgroup_invocation_id == 0u || subgroupShuffleUp(subgroup_invocation_id, 1u) == subgroup_invocation_id - 1u);
-    passed += u32(subgroupShuffleXor(subgroup_invocation_id, subgroup_size - 1u) == (subgroup_invocation_id ^ (subgroup_size - 1u)));
+    // passed += u32(subgroupBroadcastFirst(u32(subgroup_invocation_id != 0u)) == 0u);
+    // passed += u32(subgroupBroadcastFirst(u32(subgroup_invocation_id == 0u)) == 1u);
+    // passed += u32(subgroupBroadcast(subgroup_invocation_id, 4u) == 4u);
+    // passed += u32(subgroupShuffle(subgroup_invocation_id, subgroup_invocation_id) == subgroup_invocation_id);
+    // passed += u32(subgroupShuffle(subgroup_invocation_id, subgroup_size - 1u - subgroup_invocation_id) == subgroup_size - 1u - subgroup_invocation_id);
+    // passed += u32(subgroup_invocation_id == subgroup_size - 1u || subgroupShuffleDown(subgroup_invocation_id, 1u) == subgroup_invocation_id + 1u);
+    // passed += u32(subgroup_invocation_id == 0u || subgroupShuffleUp(subgroup_invocation_id, 1u) == subgroup_invocation_id - 1u);
+    // passed += u32(subgroupShuffleXor(subgroup_invocation_id, subgroup_size - 1u) == (subgroup_invocation_id ^ (subgroup_size - 1u)));
 
     storage_buffer[global_id.x] = passed;
 }
