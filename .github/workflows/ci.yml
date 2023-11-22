@@ -320,7 +320,7 @@ jobs:
 
           # Mac
           - name: Mac aarch64
-            os: [self-hosted, macOS]
+            os: macOS
 
           # Linux
           # - name: Linux x86_64
